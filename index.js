@@ -18,6 +18,16 @@ app.get("/api/products", async function (req, res) {
   }
 });
 
+app.get("/api/product/:id", async function (req, res) {
+  try {
+    const { iq } = req.params;
+    const product = Product.findById(id);
+    res.status(200).send(product);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 app.post("/api/products", async function (req, res) {
   try {
     const product = await Product.create(req.body);
