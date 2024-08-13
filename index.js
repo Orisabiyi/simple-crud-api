@@ -2,9 +2,19 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
+app.use(express.json());
 
 app.get("/", function (req, res) {
   res.send("Hello from Node Server");
+});
+
+app.post("/api/products", function (req, res) {
+  try {
+    console.log(req.body);
+    res.send(req.body);
+  } catch (error) {
+    console.log(error.message);
+  }
 });
 
 mongoose
