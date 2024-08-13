@@ -20,8 +20,8 @@ app.get("/api/products", async function (req, res) {
 
 app.get("/api/product/:id", async function (req, res) {
   try {
-    const { iq } = req.params;
-    const product = Product.findById(id);
+    const { id } = req.params;
+    const product = await Product.findById(id);
     res.status(200).send(product);
   } catch (error) {
     res.status(500).json({ message: error.message });
