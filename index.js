@@ -58,7 +58,8 @@ app.put("/api/products/:id", async function (req, res) {
       return res.status(404).json({ message: "Product does not exist" });
 
     const updateProduct = await Product.findByIdAndUpdate(id, req.body);
-    res.status(200).send(updateProduct);
+    const newProduct = await Product.findById(id);
+    res.status(200).send(newProduct);
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
