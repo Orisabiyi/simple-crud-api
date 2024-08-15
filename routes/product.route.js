@@ -1,5 +1,12 @@
 const express = require("express");
 const router = express.Router();
+const {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../controller/product.controller.js");
 
 // get route for api endpoints
 router.get("/", getProducts);
