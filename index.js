@@ -3,12 +3,16 @@ const mongoose = require("mongoose");
 const Product = require("./models/product.model.js");
 
 const app = express();
+
+// middleware
+
 app.use(express.json());
 
-// Middleware to test if the id provided by the client is valid
 function validateObjectId(id) {
   return mongoose.Types.ObjectId.isValid(id);
 }
+
+app.use("/api/products", ProductRoute);
 
 app.get("/", function (req, res) {
   res.send("Hello from Node Server");
