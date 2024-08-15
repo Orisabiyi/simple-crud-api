@@ -68,7 +68,12 @@ app.put("/api/products/:id", async function (req, res) {
 
 app.delete("/api/products/:id", async function (req, res) {
   try {
-  } catch (error) {}
+    const { id } = req.params;
+    const product = Product.findByIdAndDelete(id, req.body);
+    res.status(200).json({ message: "Product is deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
 });
 
 mongoose
