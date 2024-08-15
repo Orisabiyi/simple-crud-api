@@ -8,10 +8,6 @@ const app = express();
 
 app.use(express.json());
 
-function validateObjectId(id) {
-  return mongoose.Types.ObjectId.isValid(id);
-}
-
 app.use("/api/products", ProductRoute);
 
 app.get("/", function (req, res) {

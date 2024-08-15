@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 const Product = require("../models/product.model.js");
 
+function validateObjectId(id) {
+  return mongoose.Types.ObjectId.isValid(id);
+}
+
 const getProducts = async function (req, res) {
   try {
     const product = await Product.find();
