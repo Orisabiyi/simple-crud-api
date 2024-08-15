@@ -18,17 +18,6 @@ app.get("/", function (req, res) {
   res.send("Hello from Node Server");
 });
 
-app.get("/api/products", getProducts);
-
-app.get("/api/products/:id", getProduct);
-
-app.post("/api/products", createProduct);
-
-// This path is use for updating a product in the database
-app.put("/api/products/:id", updateProduct);
-
-app.delete("/api/products/:id", deleteProduct);
-
 mongoose
   .connect(
     "mongodb+srv://orisabiyidavid:W1hKbcu0o44UOuag@simple-crud-api.bnjnd.mongodb.net/Node-Api?retryWrites=true&w=majority&appName=simple-crud-api"
