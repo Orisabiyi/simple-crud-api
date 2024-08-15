@@ -18,14 +18,7 @@ app.get("/", function (req, res) {
   res.send("Hello from Node Server");
 });
 
-app.get("/api/products", async function (req, res) {
-  try {
-    const product = await Product.find();
-    res.status(200).send(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.get("/api/products", getProducts);
 
 app.get("/api/products/:id", async function (req, res) {
   try {
