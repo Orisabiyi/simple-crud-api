@@ -22,14 +22,7 @@ app.get("/api/products", getProducts);
 
 app.get("/api/products/:id", getProduct);
 
-app.post("/api/products", async function (req, res) {
-  try {
-    const product = await Product.create(req.body);
-    res.status(200).json(product);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+app.post("/api/products", createProduct);
 
 // This path is use for updating a product in the database
 app.put("/api/products/:id", async function (req, res) {
