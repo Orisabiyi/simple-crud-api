@@ -15,9 +15,7 @@ app.get("/", function (req, res) {
 });
 
 mongoose
-  .connect(
-    "mongodb+srv://orisabiyidavid:W1hKbcu0o44UOuag@simple-crud-api.bnjnd.mongodb.net/Node-Api?retryWrites=true&w=majority&appName=simple-crud-api"
-  )
+  .connect(process.env.DATABASE)
   .then(() => {
     console.log("Database connected");
     app.listen(3000, () => console.log("Server is running at port 3000"));
