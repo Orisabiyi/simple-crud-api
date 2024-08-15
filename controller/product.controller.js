@@ -61,3 +61,11 @@ const deleteProduct = async function (req, res) {
     res.status(500).json({ message: error.message });
   }
 };
+
+module.exports = {
+  getProducts,
+  getProduct,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};
