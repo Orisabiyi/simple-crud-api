@@ -5,6 +5,11 @@ const Product = require("./models/product.model.js");
 const app = express();
 app.use(express.json());
 
+// Middleware to test if the id provided by the client is valid
+function validateObjectId(id) {
+  return mongoose.Types.ObjectId.isValid(id);
+}
+
 app.get("/", function (req, res) {
   res.send("Hello from Node Server");
 });
@@ -41,15 +46,28 @@ app.post("/api/products", async function (req, res) {
 app.put("/api/products/:id", async function (req, res) {
   try {
     const { id } = req.params;
-    const product = await Product.findByIdAndUpdate(id, req.body);
 
-    if (!product) throw new Error("Product does not exist");
+    // Validating Id
+    if (!validateObjectId(id))
+      return res.send(400).json({ message: "Product Id is not valid" });
 
-    const updateProduct = await Product.findById(id);
+    const findProduct = await Product.findById(id);
+
+    // validating product existence
+    if (!findProduct)
+      return res.status(404).json({ message: "Product does not exist" });
+
+    const updateProduct = await Product.findByIdAndUpdate(id, req.body);
     res.status(200).send(updateProduct);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: error.message });
   }
+});
+
+app.delete("/api/products/:id", async function (req, res) {
+  try {
+  } catch (error) {}
 });
 
 mongoose
