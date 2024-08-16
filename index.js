@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const authenticateToken = require("./middleware/auth.middleware.js");
 const ProductRoute = require("./routes/product.route.js");
 
 const app = express();
@@ -9,7 +10,7 @@ app.use(express.json());
 
 app.use("/user", UserRoute);
 
-app.use("/api/products", ProductRoute);
+app.use("/api/products", authenticateToken, ProductRoute);
 
 app.get("/", function (req, res) {
   res.send("Hello from Node Server");
