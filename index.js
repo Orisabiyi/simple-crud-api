@@ -2,14 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authenticateToken = require("./middleware/auth.middleware.js");
 const ProductRoute = require("./routes/product.route.js");
-const UserRout = require("");
+const UserRoutes = require("./routes/user.route.js");
 
 const app = express();
 
 // middleware
 app.use(express.json());
 
-app.use("/user", UserRoute);
+app.use("/user", UserRoutes);
 
 app.use("/api/products", authenticateToken, ProductRoute);
 
