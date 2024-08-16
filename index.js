@@ -7,6 +7,8 @@ const app = express();
 // middleware
 app.use(express.json());
 
+app.use("/user", UserRoute);
+
 app.use("/api/products", ProductRoute);
 
 app.get("/", function (req, res) {
