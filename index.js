@@ -5,7 +5,6 @@ const ProductRoute = require("./routes/product.route.js");
 const app = express();
 
 // middleware
-
 app.use(express.json());
 
 app.use("/api/products", ProductRoute);
