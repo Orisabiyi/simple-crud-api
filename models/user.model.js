@@ -5,6 +5,7 @@ const UserSchema = mongoose.Schema(
     username: {
       type: String,
       required: true,
+      unique: true,
     },
 
     password: {
@@ -16,6 +17,8 @@ const UserSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+UserSchema.index({ username: 1 }, { unique: true });
 
 const User = mongoose.model("User", UserSchema);
 
