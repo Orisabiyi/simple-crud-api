@@ -7,6 +7,12 @@ const createUser = async function (req, res) {
     let { username, password } = req.body;
     username = username.toLowerCase();
 
+    // Check for existing user
+    const existingUser = await User.findOne({ username });
+    if (existingUser)
+      return res.status(409).json({ message: "Username already exists" });
+
+    // hash whatsapp
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hashedPassword });
 
@@ -14,7 +20,7 @@ const createUser = async function (req, res) {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.status(201).send({ user, token });
+    res.status(201).send({ token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
