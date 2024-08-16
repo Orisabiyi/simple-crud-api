@@ -9,14 +9,17 @@ const app = express();
 // middleware
 app.use(express.json());
 
+// public route
 app.use("/user", UserRoutes);
 
+// Protected route
 app.use("/api/products", authenticateToken, ProductRoute);
 
 app.get("/", function (req, res) {
   res.send("Hello from Node Server");
 });
 
+// database connection
 mongoose
   .connect(process.env.DATABASE)
   .then(() => {
