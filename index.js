@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const authenticateToken = require("./middleware/auth.middleware.js");
 const ProductRoute = require("./routes/product.route.js");
 const UserRoutes = require("./routes/user.route.js");
+require("dotenv").config();
 
 const app = express();
 
