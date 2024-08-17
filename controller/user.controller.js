@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/user.model.js");
+const { generateOTP, sendOTP } = require("../utils/otp.util.js");
 
 const createUser = async function (req, res) {
   try {
@@ -14,7 +15,17 @@ const createUser = async function (req, res) {
 
     // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await User.create({ username, password: hashedPassword });
+    const otp = generateOTP();
+    const otpExpires = Date.now() + 10 * 60 * 1000;
+
+    const user = await User.create({
+      username,
+      password: hashedPassword,
+      otp,
+      otpExpires,
+    });
+
+    await sendOTP("orisabiyidavid@gmail.com", otp);
 
     // Generate a jwt token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
