@@ -36,7 +36,8 @@ const createUser = async function (req, res) {
 const verifyUser = async function (req, res) {
   try {
     const { otp } = req.body;
-    const user = User.findOne({ otp });
+    const user = await User.findOne({ otp });
+    console.log(user);
 
     if (!user || user.otp !== otp || Date.now() > user.otpExpires)
       return res
