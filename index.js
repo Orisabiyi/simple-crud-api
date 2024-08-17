@@ -11,7 +11,7 @@ const app = express();
 app.use(express.json());
 
 // public route
-app.use("/user", UserRoutes);
+app.use("/auth", UserRoutes);
 
 // Protected route
 app.use("/api/products", authenticateToken, ProductRoute);

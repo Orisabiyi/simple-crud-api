@@ -12,7 +12,7 @@ const createUser = async function (req, res) {
     if (existingUser)
       return res.status(409).json({ message: "Username already exists" });
 
-    // hash whatsapp
+    // hash password
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = await User.create({ username, password: hashedPassword });
 
