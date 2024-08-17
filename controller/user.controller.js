@@ -13,7 +13,7 @@ const createUser = async function (req, res) {
     if (existingUser)
       return res.status(409).json({ message: "Username already exists" });
 
-    // hash password
+    // hash password and otp generatation
     const hashedPassword = await bcrypt.hash(password, 10);
     const otp = generateOTP();
     const otpExpires = Date.now() + 10 * 60 * 1000;
@@ -25,6 +25,7 @@ const createUser = async function (req, res) {
       otpExpires,
     });
 
+    // send otp code to user
     await sendOTP("orisabiyidavid@gmail.com", otp);
 
     // Generate a jwt token
