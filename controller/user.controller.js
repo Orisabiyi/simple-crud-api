@@ -27,12 +27,28 @@ const createUser = async function (req, res) {
 
     // send otp code to user
     await sendOTP("orisabiyidavid@gmail.com", otp);
+    res.status(201).send({ message: "token is sent" });
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+const verifyUser = async function (req, res) {
+  try {
+    const { otp } = req.body;
+    const user = User.findOne({ otp });
+
+    if (!user || user.otp !== otp || Date.now() > user.otpExpires)
+      return res
+        .status(409)
+        .json({ message: "Your OTP IS invalid or expired" });
 
     // Generate a jwt token
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: "1h",
     });
-    res.status(201).send({ token });
+
+    res.status(200).send({ token });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -59,5 +75,6 @@ const loginUser = async function (req, res) {
 
 module.exports = {
   createUser,
+  verifyUser,
   loginUser,
 };
