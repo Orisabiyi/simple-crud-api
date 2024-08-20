@@ -30,7 +30,7 @@ const createUser = async function (req, res) {
     });
 
     // send otp code to user
-    sendOTP("kelanidarasimi9@gmail.com", otp);
+    sendOTP(user.email, otp);
     res.status(201).send({ message: "token is sent" });
   } catch (error) {
     res.status(500).json({ message: error.message });
