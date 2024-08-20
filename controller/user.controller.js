@@ -5,12 +5,12 @@ const { generateOTP, sendOTP } = require("../utils/otp.util.js");
 
 const createUser = async function (req, res) {
   try {
-    let { username, password } = req.body;
+    let { username, email, password } = req.body;
     username = username.toLowerCase();
+    email = email.toLowerCase();
 
     // Check for existing user
-    const existingUser = await User.findOne({ username });
-    if (existingUser)
+    if (await User.findOne({ username }))
       return res.status(409).json({ message: "Username already exists" });
 
     // hash password and otp generatation
@@ -20,6 +20,7 @@ const createUser = async function (req, res) {
 
     const user = await User.create({
       username,
+      email,
       password: hashedPassword,
       otp,
       otpExpires,
