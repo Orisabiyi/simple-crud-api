@@ -11,7 +11,10 @@ const createUser = async function (req, res) {
 
     // Check for existing user
     if (await User.findOne({ username }))
-      return res.status(409).json({ message: "Username already exists" });
+      return res.status(409).json({ message: "User already exists" });
+
+    if (await User.findOne({ email }))
+      return res.status(409).json({ message: "User already exists" });
 
     // hash password and otp generatation
     const hashedPassword = await bcrypt.hash(password, 10);
